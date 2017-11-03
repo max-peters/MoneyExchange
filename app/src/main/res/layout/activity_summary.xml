@@ -16,10 +16,10 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:text="Page for Sumary"
+            android:text="Page for Summary Summary"
             android:textSize="30sp"
             tools:layout_editor_absoluteX="131dp"
             tools:layout_editor_absoluteY="235dp"
-            tools:text="Page for Sumary" />
+            tools:text="Page for Summary" />
     </RelativeLayout>
 </android.support.constraint.ConstraintLayout>
