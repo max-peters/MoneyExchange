@@ -10,60 +10,101 @@
 
 
     <RelativeLayout
-        android:layout_width="368dp"
-        android:layout_height="495dp"
-        android:background="@color/colorPrimary"
+        android:layout_width="768px"
+        android:layout_height="1280px"
+        android:background="#297c9e"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <EditText
-            android:id="@+id/currencyInputForeign"
+        <ImageView
+            android:id="@+id/imageHUF"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:background="@color/colorPrimaryDark"
-            android:ems="10"
-            android:inputType="number"
-            android:textColor="@color/colorWhite"
-            android:textColorHint="@color/colorWhite"
-            android:textSize="40sp"
-            tools:layout_editor_absoluteX="85dp"
-            tools:layout_editor_absoluteY="65dp" />
+            android:layout_marginTop="51dp"
+            android:adjustViewBounds="true"
+            android:src="@drawable/forint_background" />
 
-        <EditText
-            android:id="@+id/currencyInputHome"
+        <ImageView
+            android:id="@+id/imageEuro"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_below="@+id/currencyInputForeign"
-            android:layout_marginTop="11dp"
-            android:background="@color/colorPrimaryDark"
+            android:layout_marginTop="15dp"
+            android:adjustViewBounds="true"
+            android:src="@drawable/euro_background" />
+
+        <EditText
+            android:id="@+id/currencyInputForeign"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/imageHUF"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginRight="20px"
             android:ems="10"
             android:inputType="number"
+            android:text="0"
+            android:textAlignment="textEnd"
             android:textColor="@color/colorWhite"
             android:textColorHint="@color/colorWhite"
-            android:textSize="40sp"
+            android:textSize="50sp"
+            android:typeface="monospace"
+            tools:layout_editor_absoluteX="85dp"
+            tools:layout_editor_absoluteY="65dp"
+            tools:text="0" />
+
+        <EditText
+            android:id="@+id/currencyInputHome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/imageEuro"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginRight="20px"
+            android:ems="10"
+            android:inputType="number"
+            android:text="0"
+            android:textAlignment="textEnd"
+            android:textColor="@color/colorWhite"
+            android:textColorHint="@color/colorWhite"
+            android:textSize="50sp"
             tools:layout_editor_absoluteX="84dp"
-            tools:layout_editor_absoluteY="129dp" />
+            tools:layout_editor_absoluteY="129dp"
+            tools:text="0" />
 
         <EditText
             android:id="@+id/summary"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_centerVertical="true"
-            android:background="@color/colorPrimaryDark"
+            android:layout_below="@+id/currencyInputHome"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="83dp"
             android:ems="10"
             android:inputType="numberDecimal"
+            android:textAlignment="center"
             android:textColor="@color/colorWhite"
             android:textColorHint="@color/colorWhite"
-            android:textSize="40sp" />
+            android:textSize="24sp" />
+
+        <Button
+            android:id="@+id/btnCheck"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/summary"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30dp"
+            android:background="#01579b"
+            android:padding="10px"
+            android:text="CHECK RATE"
+            android:textSize="30sp" />
+
     </RelativeLayout>
 </android.support.constraint.ConstraintLayout>

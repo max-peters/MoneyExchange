@@ -1,9 +1,10 @@
 package hu.bme.tmit.moneyexchange;
 
+import android.app.Activity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class PurchaseActivity extends AppCompatActivity {
+public class PurchaseActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

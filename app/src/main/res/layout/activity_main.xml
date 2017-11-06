@@ -7,48 +7,21 @@
     tools:context="hu.bme.tmit.moneyexchange.MainActivity">
 
     <RelativeLayout
-        android:layout_width="368dp"
-        android:layout_height="495dp"
+        android:layout_width="768px"
+        android:layout_height="1280px"
+        android:background="#297c9e"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <Button
-            android:id="@+id/btnPurchases"
-            android:layout_width="161dp"
-            android:layout_height="52dp"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:text="Purchases"
-            android:textSize="24sp"
-            tools:layout_editor_absoluteX="112dp"
-            tools:layout_editor_absoluteY="195dp" />
-
-        <Button
-            android:id="@+id/btnSummary"
-            android:layout_width="142dp"
-            android:layout_height="52dp"
-            android:layout_below="@+id/btnPurchases"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="68dp"
-            android:text="Summary"
-            android:textSize="24sp"
-            tools:layout_editor_absoluteX="121dp"
-            tools:layout_editor_absoluteY="288dp" />
-
-        <Button
-            android:id="@+id/btnMoneyExchange"
-            android:layout_width="236dp"
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/btnPurchases"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="45dp"
-            android:text="Money Exchange"
-            android:textSize="24sp"
-            tools:layout_editor_absoluteX="74dp"
-            tools:layout_editor_absoluteY="101dp" />
+            android:src="@drawable/myhuf_logo" />
+
     </RelativeLayout>
 
 </android.support.constraint.ConstraintLayout>

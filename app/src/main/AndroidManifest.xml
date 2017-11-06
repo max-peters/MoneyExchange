@@ -16,10 +16,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".MenuActivity" />
         <activity android:name=".MoneyActivity" />
         <activity android:name=".MoneyExchangeActivity" />
         <activity android:name=".PurchaseActivity" />
-        <activity android:name=".SummaryActivity"></activity>
+        <activity android:name=".SummaryActivity" />
+        <activity android:name=".GoodRateActivity" />
+        <activity android:name=".BadRateActivity"></activity>
     </application>
 
 </manifest>

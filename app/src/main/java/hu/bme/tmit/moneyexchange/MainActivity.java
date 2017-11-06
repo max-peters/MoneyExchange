@@ -3,14 +3,9 @@ package hu.bme.tmit.moneyexchange;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
+import java.lang.Thread;
 
-public class MainActivity extends Activity implements View.OnClickListener {
-
-    Button btnMoneyExchange;
-    Button btnPurchases;
-    Button btnSummary;
+public class MainActivity extends Activity {
 
 
     @Override
@@ -19,37 +14,24 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
         setContentView(R.layout.activity_main);
 
-        btnMoneyExchange = findViewById(R.id.btnMoneyExchange);
-        btnMoneyExchange.setOnClickListener(this);
+        Thread myThread = new Thread() {
 
-        btnPurchases = findViewById(R.id.btnPurchases);
-        btnPurchases.setOnClickListener(this);
+            public void run() {
 
-        btnSummary = findViewById(R.id.btnSummary);
-        btnSummary.setOnClickListener(this);
+                try {
+                    Thread.sleep(2000);
+                    Intent i = new Intent(getApplicationContext(), MenuActivity.class);
+                    startActivity(i);
+
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+
+                }
+            }
+        };
+        myThread.start();
     }
 
-    @Override
-    public void onClick(View v) {
 
-        switch (v.getId()){
 
-            case R.id.btnMoneyExchange:
-                Intent i1 = new Intent(this, MoneyActivity.class);
-                startActivity(i1);
-                break;
-
-            case R.id.btnPurchases:
-                Intent i2 = new Intent(this, PurchaseActivity.class);
-                startActivity(i2);
-                break;
-
-            case R.id.btnSummary:
-                Intent i3 = new Intent(this, SummaryActivity.class);
-                startActivity(i3);
-                break;
-
-        }
-
-    }
 }

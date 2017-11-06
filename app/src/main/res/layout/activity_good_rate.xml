@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="hu.bme.tmit.moneyexchange.GoodRateActivity">
+
+    <RelativeLayout
+        android:layout_width="768px"
+        android:layout_height="1280px"
+        android:background="#92c768">
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="63dp"
+            android:src="@drawable/success" />
+
+        <TextView
+            android:id="@+id/textBadRate2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/textBadExplain2"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="12dp"
+            android:text="GOOD RATE"
+            android:textAlignment="center"
+            android:textColor="@android:color/white"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/textBadExplain2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_margin="30px"
+            android:text="You found an acceptable exchange rate. You can safely change it here."
+            android:textAlignment="center"
+            android:textSize="18sp" />
+
+    </RelativeLayout>
+</android.support.constraint.ConstraintLayout>
