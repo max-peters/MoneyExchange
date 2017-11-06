@@ -42,7 +42,7 @@
             android:layout_height="wrap_content"
             android:layout_above="@+id/btnPurchases"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="61dp"
+            android:layout_marginBottom="52dp"
             android:text="Money Exchange"
             android:textSize="24sp"
             tools:layout_editor_absoluteX="74dp"

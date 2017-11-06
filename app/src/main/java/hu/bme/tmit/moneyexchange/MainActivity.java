@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -35,7 +34,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (v.getId()){
 
             case R.id.btnMoneyExchange:
-                Intent i1 = new Intent(this, MoneyExchangeActivity.class);
+                Intent i1 = new Intent(this, MoneyActivity.class);
                 startActivity(i1);
                 break;
 
