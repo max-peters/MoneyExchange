@@ -8,18 +8,29 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="#297c9e">
 
         <TextView
             android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:text="Page for Summary Summary"
+            android:layout_marginTop="51dp"
+            android:text="See all Your spendings"
             android:textSize="30sp"
             tools:layout_editor_absoluteX="131dp"
             tools:layout_editor_absoluteY="235dp"
-            tools:text="Page for Summary" />
+            tools:text="See all Your spendings" />
+
+        <GridView
+            android:id="@+id/gridSpendings"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/textView3"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="60px"
+            android:layout_marginBottom="300px" />
     </RelativeLayout>
 </android.support.constraint.ConstraintLayout>

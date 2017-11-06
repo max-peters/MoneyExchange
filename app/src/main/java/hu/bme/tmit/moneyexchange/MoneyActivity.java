@@ -54,7 +54,7 @@ public class MoneyActivity extends Activity implements OnKeyListener, View.OnCli
             currencyForeign = Double.parseDouble(currencyInputForeign.getText().toString());
             currencyHome = Double.parseDouble(currencyInputHome.getText().toString());
 
-            exchangeRate = ((currencyForeign / currencyHome * 100) / 100.0);
+            exchangeRate = (double)Math.round((currencyForeign / currencyHome * 100d) / 100d);
             summary.setText(String.valueOf(exchangeRate));
 
             getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);

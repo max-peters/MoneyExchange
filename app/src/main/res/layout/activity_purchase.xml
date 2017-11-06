@@ -8,18 +8,21 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="#297c9e">
 
         <TextView
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:text="Page for Purchases"
+            android:layout_marginTop="34dp"
+            android:text="Add a purchase"
             android:textSize="30sp"
             tools:layout_editor_absoluteX="131dp"
             tools:layout_editor_absoluteY="235dp"
-            tools:text="Page for Purchases" />
+            tools:text="Add a purchase" />
+
     </RelativeLayout>
 </android.support.constraint.ConstraintLayout>
