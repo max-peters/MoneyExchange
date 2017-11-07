@@ -3,6 +3,7 @@ package hu.bme.tmit.moneyexchange;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnKeyListener;
@@ -31,10 +32,10 @@ public class MoneyActivity extends Activity implements OnKeyListener, View.OnCli
 
         currencyInputHome = findViewById(R.id.currencyInputHome);
         currencyInputHome.setOnKeyListener(this);
-        currencyInputHome.setHint("enter EUR");
+        currencyInputHome.setHint("0");
         currencyInputForeign = findViewById(R.id.currencyInputForeign);
         currencyInputForeign.requestFocus();
-        currencyInputForeign.setHint("enter HUF");
+        currencyInputForeign.setHint("0");
 
         summary = findViewById(R.id.summary);
         summary.setFocusable(false);
@@ -73,6 +74,10 @@ public class MoneyActivity extends Activity implements OnKeyListener, View.OnCli
         } else {
             i = new Intent(this, BadRateActivity.class);
         }
+
+        Bundle b = new Bundle();
+        b.putDouble("rate", exchangeRate);
+        i.putExtras(b);
         startActivity(i);
     }
 }

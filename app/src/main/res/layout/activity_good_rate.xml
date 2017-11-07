@@ -43,5 +43,15 @@
             android:textAlignment="center"
             android:textSize="18sp" />
 
+        <Button
+            android:id="@+id/btnSafeRate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textBadExplain2"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="74dp"
+            android:background="@color/colorAccent"
+            android:text="safe rate" />
+
     </RelativeLayout>
 </android.support.constraint.ConstraintLayout>

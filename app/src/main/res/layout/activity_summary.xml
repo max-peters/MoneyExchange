@@ -12,7 +12,43 @@
         android:background="#297c9e">
 
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/totalSpendings"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/SpendingsText"
+            android:layout_marginLeft="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_toEndOf="@+id/SpendingsText"
+            android:layout_toRightOf="@+id/SpendingsText"
+            android:text="TextView"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/SpendingsText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/listViewPurchases"
+            android:layout_alignParentBottom="true"
+            android:layout_alignStart="@+id/listViewPurchases"
+            android:layout_marginBottom="15dp"
+            android:text="Total spendings in EURO:"
+            android:textSize="18sp"
+            tools:text="Total spendings in EURO:" />
+
+        <ListView
+            android:id="@+id/listViewPurchases"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/SummaryHeaderText"
+            android:layout_marginBottom="100px"
+            android:layout_marginLeft="12dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="39dp" />
+
+        <TextView
+            android:id="@+id/SummaryHeaderText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
@@ -24,13 +60,5 @@
             tools:layout_editor_absoluteY="235dp"
             tools:text="See all Your spendings" />
 
-        <GridView
-            android:id="@+id/gridSpendings"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@+id/textView3"
-            android:layout_centerHorizontal="true"
-            android:layout_margin="60px"
-            android:layout_marginBottom="300px" />
     </RelativeLayout>
 </android.support.constraint.ConstraintLayout>

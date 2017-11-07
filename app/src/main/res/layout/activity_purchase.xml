@@ -11,8 +11,32 @@
         android:layout_height="match_parent"
         android:background="#297c9e">
 
+        <Button
+            android:id="@+id/btnAddPurchase"
+            android:layout_width="768px"
+            android:layout_height="150px"
+            android:layout_above="@+id/textCurrentRate"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="32dp"
+            android:background="@color/colorPrimary"
+            android:text="safe purchase to summary"
+            tools:text="safe purchase to summary" />
+
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/textViewPurchaseEuroValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/textViewPurchaseEuro"
+            android:layout_alignBottom="@+id/textViewPurchaseEuro"
+            android:layout_alignEnd="@+id/editPurchaseHUF"
+            android:layout_alignRight="@+id/editPurchaseHUF"
+            android:layout_marginEnd="15dp"
+            android:layout_marginRight="15dp"
+            android:textSize="24sp"
+            tools:text="euroWert" />
+
+        <TextView
+            android:id="@+id/textViewPurchaseHeader"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
@@ -23,6 +47,67 @@
             tools:layout_editor_absoluteX="131dp"
             tools:layout_editor_absoluteY="235dp"
             tools:text="Add a purchase" />
+
+        <TextView
+            android:id="@+id/textCurrentRate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/textCurrentRateDesc"
+            android:layout_alignBottom="@+id/textCurrentRateDesc"
+            android:layout_marginLeft="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_toEndOf="@+id/textCurrentRateDesc"
+            android:layout_toRightOf="@+id/textCurrentRateDesc"
+            android:text="currRate"
+            android:textSize="24sp"
+            tools:text="currRate" />
+
+        <TextView
+            android:id="@+id/textCurrentRateDesc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="19dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginStart="16dp"
+            android:text="currently stored rate: "
+            android:textSize="24sp"
+            tools:text="currently stored rate: " />
+
+        <EditText
+            android:id="@+id/editPurchaseHUF"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/textViewPurchaseExplain"
+            android:layout_alignStart="@+id/textViewPurchaseExplain"
+            android:layout_below="@+id/textViewPurchaseExplain"
+            android:ems="10"
+            android:inputType="numberDecimal"
+            android:selectAllOnFocus="true" />
+
+        <TextView
+            android:id="@+id/textViewPurchaseExplain"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textViewPurchaseHeader"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="62dp"
+            android:text="Please enter your HUF amount of the purchase:"
+            android:textSize="18sp"
+            tools:text="Please enter your HUF amount of the purchase:" />
+
+        <TextView
+            android:id="@+id/textViewPurchaseEuro"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/textCurrentRateDesc"
+            android:layout_alignStart="@+id/textCurrentRateDesc"
+            android:layout_centerVertical="true"
+            android:text="EURO ="
+            android:textSize="24sp"
+            tools:text="EURO =" />
 
     </RelativeLayout>
 </android.support.constraint.ConstraintLayout>
