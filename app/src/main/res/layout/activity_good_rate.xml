@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="hu.bme.tmit.moneyexchange.GoodRateActivity">
 
     <RelativeLayout
-        android:layout_width="768px"
-        android:layout_height="1280px"
+        android:id="@+id/relativeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:background="#92c768">
 
         <ImageView
@@ -17,40 +17,49 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="63dp"
+            android:layout_marginTop="60dp"
             android:src="@drawable/success" />
 
         <TextView
-            android:id="@+id/textBadRate2"
+            android:id="@+id/textGoodRate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/textBadExplain2"
+            android:layout_above="@+id/textGoodExplain"
+
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="12dp"
+
+
+            android:layout_marginBottom="10dp"
             android:text="GOOD RATE"
             android:textAlignment="center"
             android:textColor="@android:color/white"
             android:textSize="24sp" />
 
         <TextView
-            android:id="@+id/textBadExplain2"
+            android:id="@+id/textGoodExplain"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
+
             android:layout_centerVertical="true"
-            android:layout_margin="30px"
+
+            android:layout_marginHorizontal="40dp"
             android:text="You found an acceptable exchange rate. You can safely change it here."
             android:textAlignment="center"
-            android:textSize="18sp" />
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+
+            />
 
         <Button
             android:id="@+id/btnSafeRate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/textBadExplain2"
+            android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="74dp"
+            android:layout_marginBottom="80dp"
             android:background="@color/colorAccent"
+            android:padding="50px"
             android:text="safe rate" />
 
     </RelativeLayout>

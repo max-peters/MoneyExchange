@@ -7,8 +7,8 @@
     tools:context="hu.bme.tmit.moneyexchange.MainActivity">
 
     <RelativeLayout
-        android:layout_width="768px"
-        android:layout_height="1280px"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:background="#297c9e"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -20,54 +20,41 @@
             android:id="@+id/imageView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/btnMoneyExchange"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginBottom="13dp"
+            android:layout_alignParentTop="true"
             android:adjustViewBounds="true"
             android:src="@drawable/myhuf_logo" />
 
         <Button
             android:id="@+id/btnPurchases"
-            android:layout_width="768px"
+            android:layout_width="match_parent"
             android:layout_height="200px"
+
             android:layout_above="@+id/btnSummary"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
             android:layout_marginBottom="21dp"
             android:background="#01579b"
             android:text="Purchases"
-            android:textSize="24sp"
-            tools:layout_editor_absoluteX="112dp"
-            tools:layout_editor_absoluteY="195dp" />
+            android:textSize="24sp" />
 
         <Button
             android:id="@+id/btnSummary"
-            android:layout_width="768px"
+            android:layout_width="match_parent"
             android:layout_height="200px"
             android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginBottom="58dp"
+
+            android:layout_marginBottom="25dp"
             android:background="#01579b"
             android:text="Summary"
-            android:textSize="24sp"
-            tools:layout_editor_absoluteX="121dp"
-            tools:layout_editor_absoluteY="288dp" />
+            android:textSize="24sp" />
 
         <Button
             android:id="@+id/btnMoneyExchange"
-            android:layout_width="768px"
+            android:layout_width="match_parent"
             android:layout_height="200px"
             android:layout_above="@+id/btnPurchases"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginBottom="19dp"
+            android:layout_marginBottom="21dp"
             android:background="#01579b"
             android:text="Money Exchange"
-            android:textSize="24sp"
-            tools:layout_editor_absoluteX="74dp"
-            tools:layout_editor_absoluteY="101dp" />
+            android:textSize="24sp" />
     </RelativeLayout>
 
 </android.support.constraint.ConstraintLayout>
