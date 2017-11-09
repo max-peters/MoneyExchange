@@ -3,53 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="hu.bme.tmit.moneyexchange.GoodRateActivity">
+    tools:context="hu.bme.tmit.moneyexchange.ExchangeRateSummaryActivity">
 
     <RelativeLayout
         android:id="@+id/relativeLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#92c768">
-
-        <ImageView
-            android:id="@+id/imageView3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="60dp"
-            android:src="@drawable/success" />
-
-        <TextView
-            android:id="@+id/textGoodRate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/textGoodExplain"
-
-            android:layout_centerHorizontal="true"
-
-
-            android:layout_marginBottom="10dp"
-            android:text="GOOD RATE"
-            android:textAlignment="center"
-            android:textColor="@android:color/white"
-            android:textSize="24sp" />
-
-        <TextView
-            android:id="@+id/textGoodExplain"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-
-            android:layout_centerVertical="true"
-
-            android:layout_marginHorizontal="40dp"
-            android:text="You found an acceptable exchange rate. You can safely change it here."
-            android:textAlignment="center"
-            android:textColor="@android:color/white"
-            android:textSize="18sp"
-
-            />
+        android:background="#ffffff">
 
         <Button
             android:id="@+id/btnSafeRate"
@@ -59,8 +19,37 @@
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="80dp"
             android:background="@color/colorAccent"
-            android:padding="50px"
-            android:text="safe rate" />
+            android:padding="50px" />
 
+        <ImageView
+            android:id="@+id/rateImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="60dp" />
+
+        <TextView
+            android:id="@+id/rateText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/rateTextExplain"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="10dp"
+            android:textAlignment="center"
+            android:textColor="@android:color/white"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/rateTextExplain"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_marginHorizontal="40dp"
+            android:textAlignment="center"
+            android:textColor="@android:color/white"
+            android:textSize="18sp" />
     </RelativeLayout>
+
 </android.support.constraint.ConstraintLayout>

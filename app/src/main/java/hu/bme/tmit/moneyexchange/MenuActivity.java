@@ -12,7 +12,6 @@ public class MenuActivity extends Activity implements View.OnClickListener {
     Button btnPurchases;
     Button btnSummary;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,11 +29,9 @@ public class MenuActivity extends Activity implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-
-        switch (v.getId()){
-
+        switch (v.getId()) {
             case R.id.btnMoneyExchange:
-                Intent i1 = new Intent(this, MoneyActivity.class);
+                Intent i1 = new Intent(this, ExchangeRateActivity.class);
                 startActivity(i1);
                 break;
 
@@ -47,8 +44,6 @@ public class MenuActivity extends Activity implements View.OnClickListener {
                 Intent i3 = new Intent(this, SummaryActivity.class);
                 startActivity(i3);
                 break;
-
         }
-
     }
 }

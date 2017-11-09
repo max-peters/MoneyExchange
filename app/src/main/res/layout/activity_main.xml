@@ -17,5 +17,4 @@
             android:src="@drawable/myhuf_logo" />
 
     </RelativeLayout>
-
 </android.support.constraint.ConstraintLayout>

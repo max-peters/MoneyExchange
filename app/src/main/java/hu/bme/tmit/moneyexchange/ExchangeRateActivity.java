@@ -7,44 +7,29 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnKeyListener;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.TextView;
 
-public class MoneyActivity extends Activity implements OnKeyListener, View.OnClickListener {
+public class ExchangeRateActivity extends Activity implements OnKeyListener {
 
     TextView currencyInputHome;
     TextView currencyInputForeign;
-    TextView summary;
 
     double currencyHome;
     double currencyForeign;
-
-    Button btnCheck;
-
-    Double exchangeRate;
+    double exchangeRate;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_money);
+        setContentView(R.layout.activity_exchange_rate);
 
-        currencyInputHome = findViewById(R.id.inputEUR);
-        currencyInputHome.setOnKeyListener(this);
-        currencyInputHome.setHint("0");
         currencyInputForeign = findViewById(R.id.inputHUF);
         currencyInputForeign.requestFocus();
-        currencyInputForeign.setHint("0");
-
-        summary = findViewById(R.id.summary);
-        summary.setFocusable(false);
-        summary.setVisibility(View.INVISIBLE);
-
-        btnCheck = findViewById(R.id.btnCheck);
-        btnCheck.setOnClickListener(this);
+        currencyInputHome = findViewById(R.id.inputEUR);
+        currencyInputHome.setOnKeyListener(this);
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
-
     }
 
     public boolean onKey(View v, int keyCode, KeyEvent event) {
@@ -55,29 +40,17 @@ public class MoneyActivity extends Activity implements OnKeyListener, View.OnCli
             currencyHome = Double.parseDouble(currencyInputHome.getText().toString());
 
             exchangeRate = (double)Math.round((currencyForeign / currencyHome * 100d) / 100d);
-            summary.setText(String.valueOf(exchangeRate));
-
             getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
-            summary.requestFocus();
-            summary.setVisibility(View.VISIBLE);
+
+            Intent i = new Intent(this, ExchangeRateSummaryActivity.class);
+            Bundle b = new Bundle();
+            b.putDouble("rate", exchangeRate);
+            i.putExtras(b);
+            startActivity(i);
+            finish();
             return true;
         }
         return false;
-    }
-
-    @Override
-    public void onClick(View v) {
-        Intent i;
-        if (exchangeRate > 299) {
-            i = new Intent(this, GoodRateActivity.class);
-        } else {
-            i = new Intent(this, BadRateActivity.class);
-        }
-
-        Bundle b = new Bundle();
-        b.putDouble("rate", exchangeRate);
-        i.putExtras(b);
-        startActivity(i);
     }
 }
 

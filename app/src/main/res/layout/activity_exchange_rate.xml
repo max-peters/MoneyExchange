@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
     android:windowSoftInputMode="stateVisible"
-    tools:context="hu.bme.tmit.moneyexchange.MoneyActivity">
+    tools:context="hu.bme.tmit.moneyexchange.ExchangeRateActivity">
 
 
     <RelativeLayout
@@ -37,12 +37,12 @@
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/imageHUF"
             android:gravity="end"
+            android:hint="0"
             android:inputType="number"
             android:textColor="@color/colorWhite"
             android:textColorHint="@color/colorWhite"
             android:textSize="50sp"
-            android:typeface="monospace"
-            tools:text="0" />
+            android:typeface="monospace" />
 
         <EditText
             android:id="@+id/inputEUR"
@@ -50,36 +50,10 @@
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/imageEuro"
             android:gravity="end"
+            android:hint="0"
             android:inputType="number"
             android:textColor="@color/colorWhite"
             android:textColorHint="@color/colorWhite"
-            android:textSize="50sp"
-            tools:text="0" />
-
-        <EditText
-            android:id="@+id/summary"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_above="@id/btnCheck"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="20dp"
-            android:inputType="numberDecimal"
-            android:textAlignment="center"
-            android:textColor="@color/colorWhite"
-            android:textColorHint="@color/colorWhite"
-            android:textSize="24sp" />
-
-        <Button
-            android:id="@+id/btnCheck"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="50dp"
-            android:background="#01579b"
-            android:padding="10px"
-            android:text="CHECK RATE"
-            android:textSize="30sp" />
-
+            android:textSize="50sp" />
     </RelativeLayout>
 </android.support.constraint.ConstraintLayout>
