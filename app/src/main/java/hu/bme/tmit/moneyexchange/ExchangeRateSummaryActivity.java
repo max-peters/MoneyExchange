@@ -17,7 +17,8 @@ public class ExchangeRateSummaryActivity extends Activity implements View.OnClic
     TextView rateText;
     TextView rateTextExplain;
     View view;
-    double rate;
+    Bundle bundle;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,8 +32,8 @@ public class ExchangeRateSummaryActivity extends Activity implements View.OnClic
         btnSafeRate = findViewById(R.id.btnSafeRate);
         btnSafeRate.setOnClickListener(this);
 
-        Bundle b = getIntent().getExtras();
-        rate = b.getDouble("rate");
+        bundle = getIntent().getExtras();
+        Double rate = Math.round((bundle.getDouble("amountHUF") / bundle.getDouble("amountEUR") * 100d)) / 100d;
 
         if (rate < 299) {
             view.setBackgroundColor(Color.parseColor("#fb5763"));
@@ -53,15 +54,15 @@ public class ExchangeRateSummaryActivity extends Activity implements View.OnClic
 
     @Override
     public void onClick(View v) {
-        SavePreferences("currentRate", String.valueOf(rate));
-        finish();
-    }
-
-    private void SavePreferences(String key, String value) {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString(key, value);
+
+        float oldAmountHUF = sharedPreferences.getFloat("amountHUF", 0);
+        float oldAmountEUR = sharedPreferences.getFloat("amountEUR", 0);
+
+        editor.putFloat("amountHUF", oldAmountHUF + (float) bundle.getDouble("amountHUF"));
+        editor.putFloat("amountEUR", oldAmountEUR + (float) bundle.getDouble("amountEUR"));
         editor.commit();
+        finish();
     }
 }

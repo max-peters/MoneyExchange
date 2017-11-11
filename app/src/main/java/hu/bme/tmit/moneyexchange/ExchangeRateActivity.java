@@ -11,23 +11,21 @@ import android.widget.TextView;
 
 public class ExchangeRateActivity extends Activity implements OnKeyListener {
 
-    TextView currencyInputHome;
-    TextView currencyInputForeign;
+    TextView currencyInputEUR;
+    TextView currencyInputHUF;
 
-    double currencyHome;
-    double currencyForeign;
-    double exchangeRate;
-
+    double amountEUR;
+    double amountHUF;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exchange_rate);
+        currencyInputHUF = findViewById(R.id.inputHUF);
+        currencyInputEUR = findViewById(R.id.inputEUR);
+        currencyInputEUR.setOnKeyListener(this);
 
-        currencyInputForeign = findViewById(R.id.inputHUF);
-        currencyInputForeign.requestFocus();
-        currencyInputHome = findViewById(R.id.inputEUR);
-        currencyInputHome.setOnKeyListener(this);
+        currencyInputHUF.requestFocus();
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
     }
@@ -35,17 +33,38 @@ public class ExchangeRateActivity extends Activity implements OnKeyListener {
     public boolean onKey(View v, int keyCode, KeyEvent event) {
         if ((event.getAction() == KeyEvent.ACTION_DOWN) &&
                 (keyCode == KeyEvent.KEYCODE_ENTER)) {
+            boolean b = true;
+            if (currencyInputEUR.getText().length() == 0) {
+                currencyInputEUR.setError("This field can't be blank.");
+                b = false;
+            } else {
+                amountEUR = Double.parseDouble(currencyInputEUR.getText().toString());
+                if (amountEUR == 0) {
+                    currencyInputEUR.setError("This field can't be zero.");
+                    currencyInputEUR.setText("");
+                    b = false;
+                }
+            }
+            if (currencyInputHUF.getText().length() == 0) {
+                currencyInputHUF.setError("This field can't be blank.");
+                b = false;
+            } else {
+                amountHUF = Double.parseDouble(currencyInputHUF.getText().toString());
+                if (amountHUF == 0) {
+                    currencyInputHUF.setError("This field can't be zero.");
+                    currencyInputHUF.setText("");
+                    b = false;
+                }
+            }
+            if (!b) return true;
 
-            currencyForeign = Double.parseDouble(currencyInputForeign.getText().toString());
-            currencyHome = Double.parseDouble(currencyInputHome.getText().toString());
-
-            exchangeRate = (double)Math.round((currencyForeign / currencyHome * 100d) / 100d);
             getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
             Intent i = new Intent(this, ExchangeRateSummaryActivity.class);
-            Bundle b = new Bundle();
-            b.putDouble("rate", exchangeRate);
-            i.putExtras(b);
+            Bundle bu = new Bundle();
+            bu.putDouble("amountEUR", amountEUR);
+            bu.putDouble("amountHUF", amountHUF);
+            i.putExtras(bu);
             startActivity(i);
             finish();
             return true;

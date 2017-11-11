@@ -7,29 +7,28 @@ import android.util.Log;
 
 public class PurchaseMemoDbHelper extends SQLiteOpenHelper{
 
-    private static final String LOG_TAG = PurchaseMemoDbHelper.class.getSimpleName();
+
 
     public static final String DB_NAME = "purchase_list.db";
     public static final int DB_VERSION = 1;
-
     public static final String TABLE_PURCHASE_LIST = "purchase_list";
-
     public static final String COLUMN_ID = "_id";
     public static final String COLUMN_PRODUCT = "product";
     public static final String COLUMN_DATE = "date";
     public static final String COLUMN_PRICE = "price";
-
     public static final String SQL_CREATE =
             "CREATE TABLE " + TABLE_PURCHASE_LIST  +
-                    "(" + COLUMN_ID + " LONG PRIMARY KEY AUTOINCREMENT, " +
+                    "(" + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                     COLUMN_PRODUCT + " TEXT NOT NULL, " +
                     COLUMN_DATE+ " TEXT NOT NULL, " +
                     COLUMN_PRICE+ " DOUBLE NOT NULL);";
+    private static final String LOG_TAG = PurchaseMemoDbHelper.class.getSimpleName();
 
 
     public PurchaseMemoDbHelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
         Log.d(LOG_TAG, "DbHelper hat die Datenbank: " + getDatabaseName() + " erzeugt.");
+        onCreate(getWritableDatabase());
     }
 
     public void onCreate(SQLiteDatabase db) {

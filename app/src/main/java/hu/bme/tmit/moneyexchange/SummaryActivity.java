@@ -1,8 +1,9 @@
 package hu.bme.tmit.moneyexchange;
 
 import android.app.Activity;
-import android.support.v7.app.AppCompatActivity;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -12,20 +13,21 @@ import java.util.List;
 
 public class SummaryActivity extends Activity {
 
-    private PurchaseMemoDataSource dataSource;
-    ListView purchaseMemosListView;
-    TextView totalSpendings;
     public static final String LOG_TAG = MainActivity.class.getSimpleName();
+    ListView purchaseMemosListView;
+    TextView summary;
+    private PurchaseMemoDataSource dataSource;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_summary);
 
-        dataSource = new PurchaseMemoDataSource(this);
+        dataSource = PurchaseMemoDataSource.getInstance(this);
 
         Log.d(LOG_TAG, "Die Datenquelle wird geöffnet.");
         dataSource.open();
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
         List<PurchaseMemo> purchaseMemoList = dataSource.getAllPurchaseMemos();
 
@@ -38,8 +40,9 @@ public class SummaryActivity extends Activity {
         purchaseMemosListView.setAdapter(purchaseMemoArrayAdapter);
 
         Double totalAmount = dataSource.getTotalSpendings();
-        totalSpendings = findViewById(R.id.totalSpendings);
-        totalSpendings.setText(totalAmount.toString());
+        summary = findViewById(R.id.summary);
+        summary.setText("total amount spent: " + String.valueOf(Math.round(totalAmount * 100) / 100d) + " EUR\n" +
+                "amount left: " + Math.round(sharedPreferences.getFloat("amountHUF", 0)) + " HUF");
 
         Log.d(LOG_TAG, "Die Datenquelle wird geschlossen.");
         dataSource.close();

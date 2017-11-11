@@ -37,7 +37,6 @@
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/imageHUF"
             android:gravity="end"
-            android:hint="0"
             android:inputType="number"
             android:textColor="@color/colorWhite"
             android:textColorHint="@color/colorWhite"
@@ -50,10 +49,10 @@
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/imageEuro"
             android:gravity="end"
-            android:hint="0"
-            android:inputType="number"
+            android:inputType="numberDecimal"
             android:textColor="@color/colorWhite"
             android:textColorHint="@color/colorWhite"
             android:textSize="50sp" />
+
     </RelativeLayout>
 </android.support.constraint.ConstraintLayout>

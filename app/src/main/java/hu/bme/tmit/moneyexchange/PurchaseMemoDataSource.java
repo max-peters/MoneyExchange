@@ -1,11 +1,12 @@
 package hu.bme.tmit.moneyexchange;
 
 
+import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
-import android.content.ContentValues;
-import android.database.Cursor;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +14,7 @@ import java.util.List;
 public class PurchaseMemoDataSource {
 
     private static final String LOG_TAG = PurchaseMemoDataSource.class.getSimpleName();
-
+    private static PurchaseMemoDataSource Instance = null;
     private SQLiteDatabase database;
     private PurchaseMemoDbHelper dbHelper;
 
@@ -25,9 +26,16 @@ public class PurchaseMemoDataSource {
     };
 
 
-    public PurchaseMemoDataSource(Context context) {
+    private PurchaseMemoDataSource(Context context) {
         Log.d(LOG_TAG, "Unsere DataSource erzeugt jetzt den dbHelper.");
         dbHelper = new PurchaseMemoDbHelper(context);
+    }
+
+    public static PurchaseMemoDataSource getInstance(Context context) {
+        if (Instance == null) {
+            Instance = new PurchaseMemoDataSource(context);
+        }
+        return Instance;
     }
 
     public void open() {
@@ -46,7 +54,6 @@ public class PurchaseMemoDataSource {
         values.put(PurchaseMemoDbHelper.COLUMN_PRODUCT, product);
         values.put(PurchaseMemoDbHelper.COLUMN_DATE, date);
         values.put(PurchaseMemoDbHelper.COLUMN_PRICE, price);
-
         long insertId = database.insert(PurchaseMemoDbHelper.TABLE_PURCHASE_LIST, null, values);
 
         Cursor cursor = database.query(PurchaseMemoDbHelper.TABLE_PURCHASE_LIST,
@@ -102,7 +109,7 @@ public class PurchaseMemoDataSource {
         Cursor cur = database.rawQuery("SELECT SUM(price) FROM purchase_list", null);
         if(cur.moveToFirst())
         {
-            return cur.getInt(0);
+            return cur.getDouble(0);
         }
 
     return -1;

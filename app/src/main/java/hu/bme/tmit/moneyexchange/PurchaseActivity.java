@@ -1,82 +1,101 @@
 package hu.bme.tmit.moneyexchange;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 import android.os.Bundle;
-import android.util.Log;
+import android.preference.PreferenceManager;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 
 
 public class PurchaseActivity extends Activity implements View.OnKeyListener, View.OnClickListener{
 
-    TextView currentRate;
-    TextView purchaseHUFinput;
-    TextView purchaseEuroValue;
-    SharedPreferences sharedPreferences;
-    double purchhaseHUF;
-    double purchaseEURO;
-    double rate;
-    private PurchaseMemoDataSource dataSource;
-    public static final String LOG_TAG = MainActivity.class.getSimpleName();
-    private static final DateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+    TextView rateInput;
+    TextView textAmountEUR;
+    TextView purchaseHUF;
+    TextView textRate;
     Button btnAddPurchase;
 
+    float totalAmountHUF;
+    float totalAmountEUR;
+    double amountHUF;
+    double amountEUR;
+    double rate;
+
+    SharedPreferences.Editor editor;
+
+    PurchaseMemoDataSource dataSource;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_purchase);
 
-        purchaseHUFinput = findViewById(R.id.editPurchaseHUF);
-        purchaseHUFinput.setOnKeyListener(this);
-        purchaseHUFinput.setHint("0");
 
-        purchaseEuroValue = findViewById(R.id.textViewPurchaseEuroValue);
-
-        currentRate = findViewById(R.id.textCurrentRate);
-
-        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        String  data = sharedPreferences.getString("currentRate", "000") ;
-        currentRate.setText(data);
-        rate = Double.parseDouble(data);
-
-        dataSource = new PurchaseMemoDataSource(this);
-
+        purchaseHUF = findViewById(R.id.editPurchaseHUF);
+        purchaseHUF.setOnKeyListener(this);
+        textRate = findViewById(R.id.textRate);
+        textAmountEUR = findViewById(R.id.textAmountEUR);
         btnAddPurchase = findViewById(R.id.btnAddPurchase);
         btnAddPurchase.setOnClickListener(this);
 
+        dataSource = PurchaseMemoDataSource.getInstance(this);
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        editor = sharedPreferences.edit();
+        rate = Math.round((sharedPreferences.getFloat("amountHUF", 0) /
+                sharedPreferences.getFloat("amountEUR", 0) * 100d)) / 100d;
+        if (rate <= 0) {
+            Toast toast = Toast.makeText(this,
+                    "save a withdrawal before purchasing",
+                    Toast.LENGTH_LONG);
+            toast.show();
+            finish();
+        }
+        totalAmountHUF = sharedPreferences.getFloat("amountHUF", 0);
+        totalAmountEUR = sharedPreferences.getFloat("amountEUR", 0);
 
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+        textRate.setText("The currently stored rate is " + rate + " HUF/EUR.");
     }
 
 
     public boolean onKey(View v, int keyCode, KeyEvent event) {
         if ((event.getAction() == KeyEvent.ACTION_DOWN) &&
                 (keyCode == KeyEvent.KEYCODE_ENTER)) {
+            if (purchaseHUF.getText().length() == 0) {
+                purchaseHUF.setError("This field can't be blank.");
+                return true;
+            } else {
+                amountHUF = Double.parseDouble(purchaseHUF.getText().toString());
+                if (amountHUF == 0) {
+                    purchaseHUF.setError("This field can't be zero.");
+                    purchaseHUF.setText("");
+                    return true;
+                }
+            }
 
-            purchhaseHUF = Double.parseDouble(purchaseHUFinput.getText().toString());
+            amountEUR = Math.round((amountHUF / rate * 100d)) / 100d;
+            textAmountEUR.setText("You spent " + String.valueOf(amountEUR) + " EUR.");
 
-            purchaseEURO = (double)Math.round((purchhaseHUF / rate * 100d) / 100d);
-            purchaseEuroValue.setText(String.valueOf(purchaseEURO));
 
-            getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
-            purchaseEuroValue.requestFocus();
-            purchaseEuroValue.setVisibility(View.VISIBLE);
+            if (totalAmountHUF - amountHUF < 0) {
+                Toast toast = Toast.makeText(this,
+                        "This purchase exceeds the stored amount of HUF! Therefore you can't save it.",
+                        Toast.LENGTH_LONG);
+                toast.show();
+                btnAddPurchase.setVisibility(View.INVISIBLE);
+            } else {
+                btnAddPurchase.setVisibility(View.VISIBLE);
+            }
+            getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
             return true;
         }
         return false;
@@ -85,26 +104,14 @@ public class PurchaseActivity extends Activity implements View.OnKeyListener, Vi
 
     @Override
     public void onClick(View v) {
-
-        Log.d(LOG_TAG, "Die Datenquelle wird geöffnet.");
+        editor.putFloat("amountHUF", totalAmountHUF - (float) amountHUF);
+        editor.putFloat("amountEUR", totalAmountEUR - (float) amountEUR);
+        editor.commit();
         dataSource.open();
-
-        Date currentDate = new Date();
-        String printDate = sdf.format(currentDate).toString();
-
-        PurchaseMemo purchaseMemo = dataSource.createPurchaseMemo("Test", printDate, purchaseEURO);
-        Log.d(LOG_TAG, "Es wurde der folgende Eintrag in die Datenbank geschrieben:");
-        Log.d(LOG_TAG, "ID: " + purchaseMemo.getID()+ ", Inhalt: " + purchaseMemo.toString());
-
-
-        Log.d(LOG_TAG, "Die Datenquelle wird geschlossen.");
+        Date currentDate = Calendar.getInstance().getTime();
+        String printDate = new SimpleDateFormat("yyyy/MM/dd").format(currentDate).toString();
+        PurchaseMemo purchaseMemo = dataSource.createPurchaseMemo("Test", printDate, amountEUR);
         dataSource.close();
-
-        Intent i = new Intent(this, MenuActivity.class);
-        startActivity(i);
-
+        finish();
     }
-
-
-
 }

@@ -13,6 +13,7 @@ public class MainActivity extends Activity {
 
             public void run() {
                 try {
+
                     Thread.sleep(2000);
                     Intent i = new Intent(getApplicationContext(), MenuActivity.class);
                     startActivity(i);
@@ -22,6 +23,7 @@ public class MainActivity extends Activity {
                 }
             }
         };
+        PurchaseMemoDataSource.getInstance(this);
         myThread.start();
     }
 }
