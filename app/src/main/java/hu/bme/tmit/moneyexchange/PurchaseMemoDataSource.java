@@ -70,8 +70,8 @@ public class PurchaseMemoDataSource {
     private PurchaseMemo cursorToPurchaseMemo(Cursor cursor) {
         int idIndex = cursor.getColumnIndex(PurchaseMemoDbHelper.COLUMN_ID);
         int idProduct = cursor.getColumnIndex(PurchaseMemoDbHelper.COLUMN_PRODUCT);
-        int idDate= cursor.getColumnIndex(PurchaseMemoDbHelper.COLUMN_DATE);
-        int idPrice= cursor.getColumnIndex(PurchaseMemoDbHelper.COLUMN_PRICE);
+        int idDate = cursor.getColumnIndex(PurchaseMemoDbHelper.COLUMN_DATE);
+        int idPrice = cursor.getColumnIndex(PurchaseMemoDbHelper.COLUMN_PRICE);
 
         String product = cursor.getString(idProduct);
         String date = cursor.getString(idDate);
@@ -92,7 +92,7 @@ public class PurchaseMemoDataSource {
         cursor.moveToFirst();
         PurchaseMemo purchaseMemo;
 
-        while(!cursor.isAfterLast()) {
+        while (!cursor.isAfterLast()) {
             purchaseMemo = cursorToPurchaseMemo(cursor);
             purchaseMemoList.add(purchaseMemo);
             Log.d(LOG_TAG, "ID: " + purchaseMemo.getID() + ", Inhalt: " + purchaseMemo.toString());
@@ -104,16 +104,15 @@ public class PurchaseMemoDataSource {
         return purchaseMemoList;
     }
 
-    public double getTotalSpendings(){
-
+    public double getTotalSpendings() {
         Cursor cur = database.rawQuery("SELECT SUM(price) FROM purchase_list", null);
-        if(cur.moveToFirst())
-        {
+        if (cur.moveToFirst()) {
             return cur.getDouble(0);
         }
-
-    return -1;
-
+        return -1;
     }
 
+    public void reset() {
+        database.execSQL("DELETE from purchase_list");
+    }
 }

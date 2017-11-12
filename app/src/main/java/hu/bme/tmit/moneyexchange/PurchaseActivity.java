@@ -1,5 +1,6 @@
 package hu.bme.tmit.moneyexchange;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -39,7 +40,6 @@ public class PurchaseActivity extends Activity implements View.OnKeyListener, Vi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_purchase);
 
-
         purchaseHUF = findViewById(R.id.editPurchaseHUF);
         purchaseHUF.setOnKeyListener(this);
         textRate = findViewById(R.id.textRate);
@@ -63,10 +63,10 @@ public class PurchaseActivity extends Activity implements View.OnKeyListener, Vi
         totalAmountEUR = sharedPreferences.getFloat("amountEUR", 0);
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
-        textRate.setText("The currently stored rate is " + rate + " HUF/EUR.");
+        textRate.setText("The currently stored rate is\n" + rate + " HUF/EUR.");
     }
 
-
+    @TargetApi(21)
     public boolean onKey(View v, int keyCode, KeyEvent event) {
         if ((event.getAction() == KeyEvent.ACTION_DOWN) &&
                 (keyCode == KeyEvent.KEYCODE_ENTER)) {
@@ -95,7 +95,8 @@ public class PurchaseActivity extends Activity implements View.OnKeyListener, Vi
             } else {
                 btnAddPurchase.setVisibility(View.VISIBLE);
             }
-            getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+            purchaseHUF.setShowSoftInputOnFocus(false);
+            getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
             return true;
         }
         return false;

@@ -20,7 +20,7 @@
         <activity android:name=".ExchangeRateActivity" />
         <activity android:name=".PurchaseActivity" />
         <activity android:name=".SummaryActivity" />
-        <activity android:name=".ExchangeRateSummaryActivity"></activity>
+        <activity android:name=".ExchangeRateSummaryActivity" />
     </application>
 
 </manifest>
