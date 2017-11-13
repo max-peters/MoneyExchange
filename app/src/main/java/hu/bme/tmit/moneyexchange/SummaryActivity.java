@@ -41,7 +41,7 @@ public class SummaryActivity extends AppCompatActivity {
                 && sharedPreferences.getFloat("amountEUR", 0) == 0) {
             Toast toast = Toast.makeText(this,
                     "save a withdrawal or purchase first",
-                    Toast.LENGTH_LONG);
+                    Toast.LENGTH_SHORT);
             toast.show();
             finish();
         }
@@ -81,7 +81,7 @@ public class SummaryActivity extends AppCompatActivity {
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putFloat("amountHUF", 0);
                 editor.putFloat("amountEUR", 0);
-                editor.commit();
+                editor.apply();
                 dataSource.reset();
                 dataSource.close();
                 setUp();
@@ -114,7 +114,7 @@ public class SummaryActivity extends AppCompatActivity {
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putFloat("amountHUF", sharedPreferences.getFloat("amountHUF", 0) + (float) memo.getPriceHUF());
                 editor.putFloat("amountEUR", sharedPreferences.getFloat("amountEUR", 0) + (float) memo.getPriceEUR());
-                editor.commit();
+                editor.apply();
                 setUp();
 
                 return true;

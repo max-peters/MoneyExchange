@@ -33,6 +33,7 @@ public class ExchangeRateSummaryActivity extends Activity implements View.OnClic
         btnSafeRate.setOnClickListener(this);
 
         bundle = getIntent().getExtras();
+        assert bundle != null;
         double rate = bundle.getDouble("amountHUF") / bundle.getDouble("amountEUR");
 
         if (rate < 299) {
@@ -62,7 +63,7 @@ public class ExchangeRateSummaryActivity extends Activity implements View.OnClic
 
         editor.putFloat("amountHUF", oldAmountHUF + (float) bundle.getDouble("amountHUF"));
         editor.putFloat("amountEUR", oldAmountEUR + (float) bundle.getDouble("amountEUR"));
-        editor.commit();
+        editor.apply();
         finish();
     }
 }

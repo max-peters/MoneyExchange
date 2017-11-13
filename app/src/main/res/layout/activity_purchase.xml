@@ -13,7 +13,7 @@
         <Button
             android:id="@+id/btnAddPurchase"
             android:layout_width="match_parent"
-            android:layout_height="150px"
+            android:layout_height="80dp"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="40dp"
@@ -79,7 +79,7 @@
             android:focusable="false"
             android:inputType="none"
             android:textAlignment="center"
-            android:textSize="30dp" />
+            android:textSize="30sp" />
 
     </RelativeLayout>
 </android.support.constraint.ConstraintLayout>

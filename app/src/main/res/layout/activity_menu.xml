@@ -23,7 +23,7 @@
         <Button
             android:id="@+id/btnPurchases"
             android:layout_width="match_parent"
-            android:layout_height="200px"
+            android:layout_height="100dp"
             android:layout_above="@+id/btnSummary"
             android:layout_marginBottom="21dp"
             android:background="#01579b"
@@ -33,7 +33,7 @@
         <Button
             android:id="@+id/btnSummary"
             android:layout_width="match_parent"
-            android:layout_height="200px"
+            android:layout_height="100dp"
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="25dp"
             android:background="#01579b"
@@ -43,7 +43,7 @@
         <Button
             android:id="@+id/btnMoneyExchange"
             android:layout_width="match_parent"
-            android:layout_height="200px"
+            android:layout_height="100dp"
             android:layout_above="@+id/btnPurchases"
             android:layout_marginBottom="21dp"
             android:background="#01579b"

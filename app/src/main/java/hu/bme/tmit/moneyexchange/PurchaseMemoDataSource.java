@@ -82,9 +82,7 @@ public class PurchaseMemoDataSource {
         Double priceEUR = cursor.getDouble(idPriceEUR);
         long id = cursor.getLong(idIndex);
 
-        PurchaseMemo purchaseMemo = new PurchaseMemo(product, date, priceHUF, priceEUR, id);
-
-        return purchaseMemo;
+        return new PurchaseMemo(product, date, priceHUF, priceEUR, id);
     }
 
     public List<PurchaseMemo> getAllPurchaseMemos() {
@@ -111,8 +109,11 @@ public class PurchaseMemoDataSource {
     public double getTotalSpendings() {
         Cursor cur = database.rawQuery("SELECT SUM(priceEUR) FROM purchase_list", null);
         if (cur.moveToFirst()) {
-            return cur.getDouble(0);
+            double total = cur.getDouble(0);
+            cur.close();
+            return total;
         }
+        cur.close();
         return -1;
     }
 

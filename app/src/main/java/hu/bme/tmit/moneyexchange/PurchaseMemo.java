@@ -55,7 +55,6 @@ public class PurchaseMemo {
 
     @Override
     public String toString() {
-        String output = date + ": " + product + " for " + String.format("%.2f", priceEUR) + " EUR";
-        return output;
+        return date + ": " + product + " for " + String.format("%.2f", priceEUR) + " EUR";
     }
 }

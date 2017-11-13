@@ -2,6 +2,7 @@ package hu.bme.tmit.moneyexchange;
 
 import android.app.Activity;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.KeyEvent;
@@ -18,19 +19,16 @@ import java.util.Date;
 
 public class PurchaseActivity extends Activity implements View.OnKeyListener, View.OnClickListener {
 
-    TextView rateInput;
     TextView textAmountEUR;
     TextView purchaseHUF;
     TextView textRate;
     Button btnAddPurchase;
-
+    SharedPreferences sharedPreferences;
     float totalAmountHUF;
     float totalAmountEUR;
     double amountHUF;
     double amountEUR;
     double rate;
-
-    SharedPreferences.Editor editor;
 
     PurchaseMemoDataSource dataSource;
 
@@ -47,13 +45,12 @@ public class PurchaseActivity extends Activity implements View.OnKeyListener, Vi
         btnAddPurchase.setOnClickListener(this);
 
         dataSource = PurchaseMemoDataSource.getInstance(this);
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        editor = sharedPreferences.edit();
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
         if (sharedPreferences.getFloat("amountEUR", 0) == 0 && sharedPreferences.getFloat("amountHUF", 0) == 0) {
             Toast toast = Toast.makeText(this,
                     "save a withdrawal before purchasing",
-                    Toast.LENGTH_LONG);
+                    Toast.LENGTH_SHORT);
             toast.show();
             finish();
         }
@@ -100,13 +97,14 @@ public class PurchaseActivity extends Activity implements View.OnKeyListener, Vi
 
     @Override
     public void onClick(View v) {
+        Editor editor = sharedPreferences.edit();
         editor.putFloat("amountHUF", totalAmountHUF - (float) amountHUF);
         editor.putFloat("amountEUR", totalAmountEUR - (float) amountEUR);
-        editor.commit();
+        editor.apply();
         dataSource.open();
         Date currentDate = Calendar.getInstance().getTime();
-        String printDate = new SimpleDateFormat("yyyy/MM/dd").format(currentDate).toString();
-        PurchaseMemo purchaseMemo = dataSource.createPurchaseMemo("Test", printDate, amountHUF, amountEUR);
+        String printDate = new SimpleDateFormat("yyyy/MM/dd").format(currentDate);
+        dataSource.createPurchaseMemo("Test", printDate, amountHUF, amountEUR);
         dataSource.close();
         finish();
     }
