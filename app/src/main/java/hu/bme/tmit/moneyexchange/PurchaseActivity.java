@@ -1,6 +1,5 @@
 package hu.bme.tmit.moneyexchange;
 
-import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -17,7 +16,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 
-public class PurchaseActivity extends Activity implements View.OnKeyListener, View.OnClickListener{
+public class PurchaseActivity extends Activity implements View.OnKeyListener, View.OnClickListener {
 
     TextView rateInput;
     TextView textAmountEUR;
@@ -50,23 +49,23 @@ public class PurchaseActivity extends Activity implements View.OnKeyListener, Vi
         dataSource = PurchaseMemoDataSource.getInstance(this);
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         editor = sharedPreferences.edit();
-        rate = Math.round((sharedPreferences.getFloat("amountHUF", 0) /
-                sharedPreferences.getFloat("amountEUR", 0) * 100d)) / 100d;
-        if (rate <= 0) {
+
+        if (sharedPreferences.getFloat("amountEUR", 0) == 0 && sharedPreferences.getFloat("amountHUF", 0) == 0) {
             Toast toast = Toast.makeText(this,
                     "save a withdrawal before purchasing",
                     Toast.LENGTH_LONG);
             toast.show();
             finish();
         }
+
+        rate = sharedPreferences.getFloat("amountHUF", 0) / sharedPreferences.getFloat("amountEUR", 0);
         totalAmountHUF = sharedPreferences.getFloat("amountHUF", 0);
         totalAmountEUR = sharedPreferences.getFloat("amountEUR", 0);
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
-        textRate.setText("The currently stored rate is\n" + rate + " HUF/EUR.");
+        textRate.setText("The currently stored rate is\n" + String.format("%.2f", rate) + " HUF/EUR.");
     }
 
-    @TargetApi(21)
     public boolean onKey(View v, int keyCode, KeyEvent event) {
         if ((event.getAction() == KeyEvent.ACTION_DOWN) &&
                 (keyCode == KeyEvent.KEYCODE_ENTER)) {
@@ -81,11 +80,8 @@ public class PurchaseActivity extends Activity implements View.OnKeyListener, Vi
                     return true;
                 }
             }
-
-            amountEUR = Math.round((amountHUF / rate * 100d)) / 100d;
-            textAmountEUR.setText("You spent " + String.valueOf(amountEUR) + " EUR.");
-
-
+            amountEUR = amountHUF / rate;
+            textAmountEUR.setText("You spent " + String.format("%.2f", amountEUR) + " EUR.");
             if (totalAmountHUF - amountHUF < 0) {
                 Toast toast = Toast.makeText(this,
                         "This purchase exceeds the stored amount of HUF! Therefore you can't save it.",
@@ -95,8 +91,7 @@ public class PurchaseActivity extends Activity implements View.OnKeyListener, Vi
             } else {
                 btnAddPurchase.setVisibility(View.VISIBLE);
             }
-            purchaseHUF.setShowSoftInputOnFocus(false);
-            getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+            purchaseHUF.clearFocus();
             return true;
         }
         return false;
@@ -111,7 +106,7 @@ public class PurchaseActivity extends Activity implements View.OnKeyListener, Vi
         dataSource.open();
         Date currentDate = Calendar.getInstance().getTime();
         String printDate = new SimpleDateFormat("yyyy/MM/dd").format(currentDate).toString();
-        PurchaseMemo purchaseMemo = dataSource.createPurchaseMemo("Test", printDate, amountEUR);
+        PurchaseMemo purchaseMemo = dataSource.createPurchaseMemo("Test", printDate, amountHUF, amountEUR);
         dataSource.close();
         finish();
     }

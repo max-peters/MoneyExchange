@@ -5,14 +5,16 @@ public class PurchaseMemo {
 
     private String product;
     private String date;
-    private double price;
+    private double priceHUF;
+    private double priceEUR;
     private long id;
 
 
-    public PurchaseMemo(String product, String date, double price, long id) {
+    public PurchaseMemo(String product, String date, double priceHUF, double priceEUR, long id) {
         this.product = product;
         this.date = date;
-        this.price = price;
+        this.priceHUF = priceHUF;
+        this.priceEUR = priceEUR;
         this.id = id;
     }
 
@@ -35,26 +37,25 @@ public class PurchaseMemo {
     }
 
 
-    public double getPrice() {
-        return price;
+    public double getPriceHUF() {
+        return priceHUF;
     }
 
-    public void setId(double price) {
-        this.price = price;
+    public double getPriceEUR() {
+        return priceEUR;
     }
 
-    public long getID(){
+    public long getID() {
         return id;
     }
 
-    public void setID(long id){
+    public void setID(long id) {
         this.id = id;
     }
 
     @Override
     public String toString() {
-        String output = id + " " + date + ": " + product + " for " + price;
-
+        String output = date + ": " + product + " for " + String.format("%.2f", priceEUR) + " EUR";
         return output;
     }
 }

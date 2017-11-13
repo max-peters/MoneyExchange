@@ -5,9 +5,13 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -30,6 +34,7 @@ public class SummaryActivity extends AppCompatActivity {
         setContentView(R.layout.activity_summary);
         summary = findViewById(R.id.summary);
         purchaseMemosListView = findViewById(R.id.listViewPurchases);
+        registerForContextMenu(purchaseMemosListView);
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         setUp();
         if (purchaseMemoList.isEmpty() && sharedPreferences.getFloat("amountHUF", 0) == 0
@@ -48,13 +53,13 @@ public class SummaryActivity extends AppCompatActivity {
         Log.d(LOG_TAG, "Die Datenquelle wird geöffnet.");
         dataSource.open();
         purchaseMemoList = dataSource.getAllPurchaseMemos();
-        ArrayAdapter<PurchaseMemo> purchaseMemoArrayAdapter = new ArrayAdapter<> (
+        ArrayAdapter<PurchaseMemo> purchaseMemoArrayAdapter = new ArrayAdapter<>(
                 this,
-                android.R.layout.simple_list_item_multiple_choice,
+                android.R.layout.simple_list_item_1,
                 purchaseMemoList);
         purchaseMemosListView.setAdapter(purchaseMemoArrayAdapter);
         Double totalAmount = dataSource.getTotalSpendings();
-        summary.setText("total amount spent: " + String.valueOf(Math.round(totalAmount * 100) / 100d) + " EUR\n" +
+        summary.setText("total amount spent: " + String.format("%.2f", totalAmount) + " EUR\n" +
                 "amount left: " + Math.round(sharedPreferences.getFloat("amountHUF", 0)) + " HUF");
         Log.d(LOG_TAG, "Die Datenquelle wird geschlossen.");
         dataSource.close();
@@ -83,6 +88,38 @@ public class SummaryActivity extends AppCompatActivity {
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        if (v.getId() == R.id.listViewPurchases) {
+            MenuInflater inflater = getMenuInflater();
+            inflater.inflate(R.menu.context, menu);
+        }
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
+        switch (item.getItemId()) {
+            case R.id.delete:
+                PurchaseMemo memo = purchaseMemoList.get(info.position);
+                dataSource.open();
+                dataSource.delete(memo);
+                dataSource.close();
+
+                SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putFloat("amountHUF", sharedPreferences.getFloat("amountHUF", 0) + (float) memo.getPriceHUF());
+                editor.putFloat("amountEUR", sharedPreferences.getFloat("amountEUR", 0) + (float) memo.getPriceEUR());
+                editor.commit();
+                setUp();
+
+                return true;
+            default:
+                return super.onContextItemSelected(item);
         }
     }
 }

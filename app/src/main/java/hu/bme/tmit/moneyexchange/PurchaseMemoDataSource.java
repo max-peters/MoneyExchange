@@ -22,7 +22,8 @@ public class PurchaseMemoDataSource {
             PurchaseMemoDbHelper.COLUMN_ID,
             PurchaseMemoDbHelper.COLUMN_PRODUCT,
             PurchaseMemoDbHelper.COLUMN_DATE,
-            PurchaseMemoDbHelper.COLUMN_PRICE
+            PurchaseMemoDbHelper.COLUMN_PRICE_HUF,
+            PurchaseMemoDbHelper.COLUMN_PRICE_EUR
     };
 
 
@@ -49,11 +50,12 @@ public class PurchaseMemoDataSource {
         Log.d(LOG_TAG, "Datenbank mit Hilfe des DbHelpers geschlossen.");
     }
 
-    public PurchaseMemo createPurchaseMemo(String product, String date, Double price) {
+    public PurchaseMemo createPurchaseMemo(String product, String date, Double priceHUF, Double priceEUR) {
         ContentValues values = new ContentValues();
         values.put(PurchaseMemoDbHelper.COLUMN_PRODUCT, product);
         values.put(PurchaseMemoDbHelper.COLUMN_DATE, date);
-        values.put(PurchaseMemoDbHelper.COLUMN_PRICE, price);
+        values.put(PurchaseMemoDbHelper.COLUMN_PRICE_HUF, priceHUF);
+        values.put(PurchaseMemoDbHelper.COLUMN_PRICE_EUR, priceEUR);
         long insertId = database.insert(PurchaseMemoDbHelper.TABLE_PURCHASE_LIST, null, values);
 
         Cursor cursor = database.query(PurchaseMemoDbHelper.TABLE_PURCHASE_LIST,
@@ -71,14 +73,16 @@ public class PurchaseMemoDataSource {
         int idIndex = cursor.getColumnIndex(PurchaseMemoDbHelper.COLUMN_ID);
         int idProduct = cursor.getColumnIndex(PurchaseMemoDbHelper.COLUMN_PRODUCT);
         int idDate = cursor.getColumnIndex(PurchaseMemoDbHelper.COLUMN_DATE);
-        int idPrice = cursor.getColumnIndex(PurchaseMemoDbHelper.COLUMN_PRICE);
+        int idPriceHUF = cursor.getColumnIndex(PurchaseMemoDbHelper.COLUMN_PRICE_HUF);
+        int idPriceEUR = cursor.getColumnIndex(PurchaseMemoDbHelper.COLUMN_PRICE_EUR);
 
         String product = cursor.getString(idProduct);
         String date = cursor.getString(idDate);
-        Double price = cursor.getDouble(idPrice);
+        Double priceHUF = cursor.getDouble(idPriceHUF);
+        Double priceEUR = cursor.getDouble(idPriceEUR);
         long id = cursor.getLong(idIndex);
 
-        PurchaseMemo purchaseMemo = new PurchaseMemo(product, date, price, id);
+        PurchaseMemo purchaseMemo = new PurchaseMemo(product, date, priceHUF, priceEUR, id);
 
         return purchaseMemo;
     }
@@ -105,7 +109,7 @@ public class PurchaseMemoDataSource {
     }
 
     public double getTotalSpendings() {
-        Cursor cur = database.rawQuery("SELECT SUM(price) FROM purchase_list", null);
+        Cursor cur = database.rawQuery("SELECT SUM(priceEUR) FROM purchase_list", null);
         if (cur.moveToFirst()) {
             return cur.getDouble(0);
         }
@@ -114,5 +118,10 @@ public class PurchaseMemoDataSource {
 
     public void reset() {
         database.execSQL("DELETE from purchase_list");
+        database.execSQL("DELETE FROM SQLITE_SEQUENCE WHERE NAME = 'purchase_list'");
+    }
+
+    public void delete(PurchaseMemo memo) {
+        database.execSQL("DELETE from purchase_list where _id='" + memo.getID() + "'");
     }
 }

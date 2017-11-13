@@ -33,20 +33,20 @@ public class ExchangeRateSummaryActivity extends Activity implements View.OnClic
         btnSafeRate.setOnClickListener(this);
 
         bundle = getIntent().getExtras();
-        Double rate = Math.round((bundle.getDouble("amountHUF") / bundle.getDouble("amountEUR") * 100d)) / 100d;
+        double rate = bundle.getDouble("amountHUF") / bundle.getDouble("amountEUR");
 
         if (rate < 299) {
             view.setBackgroundColor(Color.parseColor("#fb5763"));
             image.setImageResource(R.drawable.fail);
             rateText.setText("BAD RATE");
-            rateTextExplain.setText("The proposed exchange rate is: \n" + String.valueOf(rate) +
+            rateTextExplain.setText("The proposed exchange rate is: \n" + String.format("%.2f", rate) +
                     " HUF/EUR\nWe do not recommend you to accept this rate.");
             btnSafeRate.setText("SAFE RATE ANYWAYS");
         } else {
             view.setBackgroundColor(Color.parseColor("#92c768"));
             image.setImageResource(R.drawable.success);
             rateText.setText("GOOD RATE");
-            rateTextExplain.setText("The proposed exchange rate is: \n" + String.valueOf(rate) +
+            rateTextExplain.setText("The proposed exchange rate is: \n" + String.format("%.2f", rate) +
                     " HUF/EUR\nWe recommend you to accept this rate.");
             btnSafeRate.setText("SAFE RATE");
         }
