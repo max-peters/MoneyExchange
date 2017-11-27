@@ -1,6 +1,7 @@
 package hu.bme.tmit.moneyexchange;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
@@ -60,7 +61,7 @@ public class PurchaseActivity extends Activity implements View.OnKeyListener, Vi
         totalAmountEUR = sharedPreferences.getFloat("amountEUR", 0);
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
-        textRate.setText("The currently stored rate is\n" + String.format("%.2f", rate) + " HUF/EUR.");
+        textRate.setText("Current rate is " + String.format("%.2f", rate) + " HUF/EUR.");
     }
 
     public boolean onKey(View v, int keyCode, KeyEvent event) {
@@ -101,11 +102,20 @@ public class PurchaseActivity extends Activity implements View.OnKeyListener, Vi
         editor.putFloat("amountHUF", totalAmountHUF - (float) amountHUF);
         editor.putFloat("amountEUR", totalAmountEUR - (float) amountEUR);
         editor.apply();
-        dataSource.open();
+
         Date currentDate = Calendar.getInstance().getTime();
         String printDate = new SimpleDateFormat("yyyy/MM/dd").format(currentDate);
-        dataSource.createPurchaseMemo("Test", printDate, amountHUF, amountEUR);
-        dataSource.close();
+
+        Intent i = new Intent(this, TypeActivity.class);
+
+        Bundle bu = new Bundle();
+            bu.putString("date", printDate);
+            bu.putDouble("amountHUF", amountHUF);
+            bu.putDouble("amountEUR", amountEUR);
+            i.putExtras(bu);
+
+        startActivity(i);
         finish();
+
     }
 }

@@ -21,6 +21,7 @@
         <activity android:name=".PurchaseActivity" />
         <activity android:name=".SummaryActivity" />
         <activity android:name=".ExchangeRateSummaryActivity" />
+        <activity android:name=".TypeActivity" />
     </application>
 
 </manifest>

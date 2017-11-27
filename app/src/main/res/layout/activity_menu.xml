@@ -10,22 +10,37 @@
         android:layout_height="match_parent"
         android:background="#297c9e">
 
+        <TextView
+            android:id="@+id/textViewCurrentAmount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="11dp"
+            android:text="Current amount:"
+            android:textAlignment="center"
+            android:textColor="@android:color/white"
+            android:textSize="18sp" />
+
         <ImageView
             android:id="@+id/imageView2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_above="@id/btnMoneyExchange"
-            android:layout_alignParentTop="true"
-            android:layout_centerVertical="true"
+            android:layout_above="@+id/btnMoneyExchange"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
             android:adjustViewBounds="true"
             android:src="@drawable/myhuf_logo" />
 
         <Button
             android:id="@+id/btnPurchases"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="90dp"
             android:layout_above="@+id/btnSummary"
-            android:layout_marginBottom="21dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="12dp"
             android:background="#01579b"
             android:text="Purchases"
             android:textSize="24sp" />
@@ -33,9 +48,11 @@
         <Button
             android:id="@+id/btnSummary"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="25dp"
+            android:layout_height="90dp"
+            android:layout_above="@+id/textViewCurrentAmount"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="14dp"
             android:background="#01579b"
             android:text="Summary"
             android:textSize="24sp" />
@@ -43,9 +60,11 @@
         <Button
             android:id="@+id/btnMoneyExchange"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="90dp"
             android:layout_above="@+id/btnPurchases"
-            android:layout_marginBottom="21dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="11dp"
             android:background="#01579b"
             android:text="Money Exchange"
             android:textSize="24sp" />

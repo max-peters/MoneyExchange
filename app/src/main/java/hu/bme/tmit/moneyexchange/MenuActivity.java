@@ -2,20 +2,26 @@ package hu.bme.tmit.moneyexchange;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 public class MenuActivity extends Activity implements View.OnClickListener {
 
     Button btnMoneyExchange;
     Button btnPurchases;
     Button btnSummary;
-
+    TextView currentAmount;
+    SharedPreferences sharedPreferences;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
+
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
         btnMoneyExchange = findViewById(R.id.btnMoneyExchange);
         btnMoneyExchange.setOnClickListener(this);
@@ -25,6 +31,9 @@ public class MenuActivity extends Activity implements View.OnClickListener {
 
         btnSummary = findViewById(R.id.btnSummary);
         btnSummary.setOnClickListener(this);
+
+        currentAmount = findViewById(R.id.textViewCurrentAmount);
+        currentAmount.setText("Current amount: " + Math.round(sharedPreferences.getFloat("amountHUF", 0)) + " HUF");
     }
 
     @Override

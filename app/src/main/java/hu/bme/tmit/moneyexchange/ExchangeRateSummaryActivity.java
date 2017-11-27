@@ -81,6 +81,7 @@ public class ExchangeRateSummaryActivity extends Activity implements View.OnClic
             case R.id.btnBackToExchange:
                 Intent i = new Intent(this, ExchangeRateActivity.class);
                 startActivity(i);
+                finish();
                 break;
         }
 
