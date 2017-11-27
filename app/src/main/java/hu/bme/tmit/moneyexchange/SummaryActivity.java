@@ -60,7 +60,7 @@ public class SummaryActivity extends AppCompatActivity {
         purchaseMemosListView.setAdapter(purchaseMemoArrayAdapter);
         Double totalAmount = dataSource.getTotalSpendings();
         summary.setText("total amount spent: " + String.format("%.2f", totalAmount) + " EUR\n" +
-                "amount left: " + Math.round(sharedPreferences.getFloat("amountHUF", 0)) + " HUF");
+               "amount left: " + Math.round(sharedPreferences.getFloat("amountHUF", 0)) + " HUF");
         Log.d(LOG_TAG, "Die Datenquelle wird geschlossen.");
         dataSource.close();
     }

@@ -13,6 +13,18 @@
         android:layout_height="match_parent"
         android:background="#297c9e">
 
+        <Button
+            android:id="@+id/btnBackToMenu"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="40dp"
+            android:background="@color/colorPrimary"
+            android:focusable="false"
+            android:text="back to the main menu"
+            tools:text="back to the main menu" />
+
         <ImageView
             android:id="@+id/imageHUF"
             android:layout_width="wrap_content"
