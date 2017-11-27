@@ -85,7 +85,6 @@ public class ExchangeRateActivity extends Activity implements OnKeyListener, Vie
 
                 Intent i = new Intent(this, MenuActivity.class);
                 startActivity(i);
-
     }
 }
 
