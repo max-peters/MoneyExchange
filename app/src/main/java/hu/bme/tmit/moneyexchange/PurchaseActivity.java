@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.KeyEvent;
@@ -62,6 +63,7 @@ public class PurchaseActivity extends Activity implements View.OnKeyListener, Vi
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
         textRate.setText("Current rate is " + String.format("%.2f", rate) + " HUF/EUR.");
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);
     }
 
     public boolean onKey(View v, int keyCode, KeyEvent event) {

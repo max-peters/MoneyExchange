@@ -3,6 +3,7 @@ package hu.bme.tmit.moneyexchange;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -59,6 +60,7 @@ public class ExchangeRateSummaryActivity extends Activity implements View.OnClic
             btnSafeRate.setBackgroundColor(Color.parseColor("#FF53863E"));
             btnBackToExchange.setBackgroundColor(Color.parseColor("#FF53863E"));
         }
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);
     }
 
     @Override

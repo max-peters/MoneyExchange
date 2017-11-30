@@ -2,9 +2,8 @@ package hu.bme.tmit.moneyexchange;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnKeyListener;
@@ -36,6 +35,7 @@ public class ExchangeRateActivity extends Activity implements OnKeyListener, Vie
         currencyInputHUF.requestFocus();
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);
     }
 
     public boolean onKey(View v, int keyCode, KeyEvent event) {

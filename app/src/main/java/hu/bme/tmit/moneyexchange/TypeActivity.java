@@ -1,6 +1,7 @@
 package hu.bme.tmit.moneyexchange;
 
 import android.app.Activity;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -10,7 +11,7 @@ import android.widget.TextView;
 public class TypeActivity extends Activity implements View.OnClickListener {
 
     PurchaseMemoDataSource dataSource;
-    TextView textViewTypeExplain;
+    TextView editTextOwnType;
     Button btnTypeRestaurant;
     Button btnTypeSightseeing;
     Button btnTypeAccommodation;
@@ -28,7 +29,7 @@ public class TypeActivity extends Activity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.type_activity);
 
-        textViewTypeExplain = findViewById(R.id.textViewTypeExplain);
+        editTextOwnType = findViewById(R.id.editTextOwnType);
 
         btnTypeRestaurant = findViewById(R.id.btnTypeRestaurant);
         btnTypeRestaurant.setOnClickListener(this);
@@ -53,8 +54,7 @@ public class TypeActivity extends Activity implements View.OnClickListener {
 
         dataSource = PurchaseMemoDataSource.getInstance(this);
 
-
-
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);
     }
 
 
@@ -87,8 +87,13 @@ public class TypeActivity extends Activity implements View.OnClickListener {
         }
         switch (v.getId()) {
             case R.id.btnTypeOther:
-                type = "other ";
-                storePurchase();
+                String other = editTextOwnType.getText().toString();
+                if (other.isEmpty()) {
+                    editTextOwnType.setError("this field can't be empty");
+                } else {
+                    type = other;
+                    storePurchase();
+                }
                 break;
         }
     }

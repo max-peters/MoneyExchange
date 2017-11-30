@@ -55,4 +55,10 @@ public class MenuActivity extends Activity implements View.OnClickListener {
                 break;
         }
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        currentAmount.setText("Current amount: " + Math.round(sharedPreferences.getFloat("amountHUF", 0)) + " HUF");
+    }
 }
