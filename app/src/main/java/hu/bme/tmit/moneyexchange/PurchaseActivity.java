@@ -3,7 +3,6 @@ package hu.bme.tmit.moneyexchange;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -100,11 +99,6 @@ public class PurchaseActivity extends Activity implements View.OnKeyListener, Vi
 
     @Override
     public void onClick(View v) {
-        Editor editor = sharedPreferences.edit();
-        editor.putFloat("amountHUF", totalAmountHUF - (float) amountHUF);
-        editor.putFloat("amountEUR", totalAmountEUR - (float) amountEUR);
-        editor.apply();
-
         Date currentDate = Calendar.getInstance().getTime();
         String printDate = new SimpleDateFormat("yyyy/MM/dd").format(currentDate);
 

@@ -1,8 +1,10 @@
 package hu.bme.tmit.moneyexchange;
 
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -11,6 +13,7 @@ import android.widget.TextView;
 public class TypeActivity extends Activity implements View.OnClickListener {
 
     PurchaseMemoDataSource dataSource;
+    SharedPreferences sharedPreferences;
     TextView editTextOwnType;
     Button btnTypeRestaurant;
     Button btnTypeSightseeing;
@@ -28,6 +31,8 @@ public class TypeActivity extends Activity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.type_activity);
+
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
         editTextOwnType = findViewById(R.id.editTextOwnType);
 
@@ -99,6 +104,10 @@ public class TypeActivity extends Activity implements View.OnClickListener {
     }
 
     private void storePurchase() {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putFloat("amountHUF", sharedPreferences.getFloat("amountHUF", 0) - (float) amountHUF);
+        editor.putFloat("amountEUR", sharedPreferences.getFloat("amountEUR", 0) - (float) amountEUR);
+        editor.apply();
 
         dataSource.open();
         dataSource.createPurchaseMemo(type, printDate, amountHUF, amountEUR);
